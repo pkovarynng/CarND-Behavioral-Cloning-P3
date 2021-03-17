@@ -39,9 +39,9 @@ from keras.layers.convolutional import Conv2D
 from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
-# Pre-processing using a lambda layer to improve the data:
-# 1. Normalization: to a range between 0 and 1 by dividing by 255 - the max value of a pixel
-# 2. Mean centering the data to shift the element mean by 0.5 down to zero
+# Pre-processing the data using a lambda layer to improve the model in two simple steps:
+# 1. Normalization to a range between 0 and 1 by dividing by 255 - the max value of a pixel
+# 2. Mean centering the data by shifting the element mean by 0.5 down to zero
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
 
 # LeNet
