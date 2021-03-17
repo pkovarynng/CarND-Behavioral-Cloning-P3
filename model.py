@@ -2,6 +2,7 @@ import csv
 
 # Read in the driving log csv file
 # as shown in the "Training Yout Network" video
+print('Reading driving log...', end='')
 lines = []
 with open('/opt/data/driving_log.csv') as csvfile:
     # Skip the line containing the table header
@@ -9,11 +10,13 @@ with open('/opt/data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
+print('Done.')
 
 # Get the images and the steering measurements
 import numpy as np
 from scipy import ndimage
 
+print('Loading images...', end='')
 images = []
 measurements = []
 for line in lines:
@@ -22,6 +25,7 @@ for line in lines:
     images.append(image)
     measurement = float(line[3])
     measurements.append(measurement)
+print('Done.')
     
 # Convert the images and the steering measuremets to numpy arrays
 # since this is the format Keras requires.
@@ -30,14 +34,24 @@ y_train = np.array(measurements)
 
 # Build the model using Keras
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda
+from keras.layers.core import Flatten, Dense, Lambda
+from keras.layers.convolutional import Conv2D
+from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
 # Pre-processing using a lambda layer to improve the data:
 # 1. Normalization: to a range between 0 and 1 by dividing by 255 - the max value of a pixel
 # 2. Mean centering the data to shift the element mean by 0.5 down to zero
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
+
+# LeNet
+model.add(Conv2D(6, 5, 5, activation='relu'))
+model.add(MaxPooling2D())
+model.add(Conv2D(6, 5, 5, activation='relu'))
+model.add(MaxPooling2D())
 model.add(Flatten())
+model.add(Dense(120))
+model.add(Dense(84))
 model.add(Dense(1))
 
 # Loss function is mean squared error (MSE) and the optimizer is ADAM
