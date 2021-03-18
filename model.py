@@ -49,14 +49,19 @@ y_train = np.array(augmented_measurements)
 # Build the model using Keras
 from keras.models import Sequential
 from keras.layers.core import Flatten, Dense, Lambda
+from keras.layers import Cropping2D
 from keras.layers.convolutional import Conv2D
 from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
+
 # Pre-processing the data using a lambda layer to improve the model in two simple steps:
 # 1. Normalization to a range between 0 and 1 by dividing by 255 - the max value of a pixel
 # 2. Mean centering the data by shifting the element mean by 0.5 down to zero
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
+
+# Pre-processing again, cropping images
+model.add(Cropping2D(cropping=((70, 25), (0, 0))))
 
 # LeNet
 model.add(Conv2D(6, 5, 5, activation='relu'))
@@ -75,3 +80,5 @@ model.fit(X_train, y_train, validation_split=0.2, shuffle=True, epochs=5)
 
 # Save the trained model
 model.save('model.h5')
+
+print('All done.')
