@@ -26,11 +26,25 @@ for line in lines:
     measurement = float(line[3])
     measurements.append(measurement)
 print('Done.')
+
+# To help with the left-turn bias, for example, add flipped images to the data set
+# if the steering angle's absolute value is greater than angle_threshold
+angle_threshold = 1.0 # 1.0 means no augmentation
+print('Augmenting data (steering angle threshold: {})...'.format(angle_threshold), end='')
+augmented_images = []
+augmented_measurements = []
+for image, measurement in zip(images, measurements):
+    augmented_images.append(image)
+    augmented_measurements.append(measurement)
+    if abs(measurement) > angle_threshold:
+        augmented_images.append(np.fliplr(image))
+        augmented_measurements.append(-measurement)
+print('Done.')
     
 # Convert the images and the steering measuremets to numpy arrays
 # since this is the format Keras requires.
-X_train = np.array(images)
-y_train = np.array(measurements)
+X_train = np.array(augmented_images)
+y_train = np.array(augmented_measurements)
 
 # Build the model using Keras
 from keras.models import Sequential
