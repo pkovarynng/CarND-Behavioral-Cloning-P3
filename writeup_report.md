@@ -21,10 +21,7 @@ The goals / steps of this project are the following:
 [image1]: ./Figure_1.png "Center Cam Img Histogram"
 [image2]: ./Figure_2.png "All Cam Img Histogram"
 [image3]: ./Figure_3.png "Augmented Cam Img Histogram"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image4]: ./NormalFlipped.png "Normal and Flipped Image"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -97,7 +94,7 @@ The final step was to run the simulator to see how well the car was driving arou
 
 Then I started to use more (all) images from the data set and augmented the data.
 
-At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road.
+At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road. Please, find video.mp4 in this git repository that is also available in my udacity workspace for the project.
 
 #### 2. Final Model Architecture
 
@@ -133,6 +130,12 @@ The representation of the steering values throughout the images became the follo
 ![alt text][image2]
 
 In order to further increase the data and reduce over-fitting, I decided to do a simple augmentation of the data: simply flipped images with a steering angle greater than a threshold - also a parameter that was tuned (code lines 37-50). In the final code the angle threshold was set to 0.02.
+
+Here is a normal image and its flipped version with their respective steering angle values:
+
+![alt text][image4]
+
+The representation of the steering values throughout the images became the following:
 
 ![alt text][image3]
 
