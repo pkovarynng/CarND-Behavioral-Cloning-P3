@@ -48,6 +48,8 @@ python drive.py model.h5
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for loading and pre-processing the data, training and validating the model, and it contains comments to explain how the code works.
 
+My submission is also available [in my github repository](https://github.com/pkovarynng/CarND-Behavioral-Cloning-P3)
+
 ### Model Architecture and Training Strategy
 
 #### 1. An appropriate model architecture has been employed
