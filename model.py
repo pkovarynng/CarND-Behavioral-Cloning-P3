@@ -1,7 +1,7 @@
 import csv
 
 # Read in the driving log csv file
-# as shown in the "Training Yout Network" video
+# as shown in the "Training Your Network" video
 print('Reading driving log...', end='')
 lines = []
 with open('./data/driving_log.csv') as csvfile:
