@@ -2,7 +2,7 @@ import csv
 
 # Read in the driving log csv file
 # as shown in the "Training Your Network" video
-print('Reading driving log...', end='')
+print('Reading the driving log csv... ', end='')
 lines = []
 with open('./data/driving_log.csv') as csvfile:
     # Skip the line containing the table header
@@ -16,7 +16,7 @@ print('Done.')
 import numpy as np
 from scipy import ndimage
 
-print('Loading images...', end='')
+print('Loading images... ', end='')
 images = []
 measurements = []
 angle_correction = 0.2
@@ -34,10 +34,10 @@ for line in lines:
 print('Done.')
 print('Number of images in data set: {}'.format(len(images)))
 
-# To help with the left-turn bias, for example, add flipped images to the data set
+# Data augmentation: flipped images to the data set
 # if the steering angle's absolute value is greater than angle_threshold
 angle_threshold = 0.02 # 1.0 means no augmentation
-print('Augmenting data (steering angle threshold: {})...'.format(angle_threshold), end='')
+print('Augmenting data (steering angle threshold: {})... '.format(angle_threshold), end='')
 augmented_images = []
 augmented_measurements = []
 for image, measurement in zip(images, measurements):
