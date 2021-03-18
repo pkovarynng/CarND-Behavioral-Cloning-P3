@@ -26,10 +26,11 @@ for line in lines:
     measurement = float(line[3])
     measurements.append(measurement)
 print('Done.')
+print('Number of images in data set: {}'.format(len(images)))
 
 # To help with the left-turn bias, for example, add flipped images to the data set
 # if the steering angle's absolute value is greater than angle_threshold
-angle_threshold = 1.0 # 1.0 means no augmentation
+angle_threshold = 0.02 # 1.0 means no augmentation
 print('Augmenting data (steering angle threshold: {})...'.format(angle_threshold), end='')
 augmented_images = []
 augmented_measurements = []
@@ -40,6 +41,7 @@ for image, measurement in zip(images, measurements):
         augmented_images.append(np.fliplr(image))
         augmented_measurements.append(-measurement)
 print('Done.')
+print('Number of images in data set after augmentation: {}'.format(len(augmented_images)))
     
 # Convert the images and the steering measuremets to numpy arrays
 # since this is the format Keras requires.
@@ -48,7 +50,7 @@ y_train = np.array(augmented_measurements)
 
 # Build the model using Keras
 from keras.models import Sequential
-from keras.layers.core import Flatten, Dense, Lambda
+from keras.layers.core import Flatten, Dense, Lambda, Dropout
 from keras.layers import Cropping2D
 from keras.layers.convolutional import Conv2D
 from keras.layers.pooling import MaxPooling2D
@@ -61,22 +63,24 @@ model = Sequential()
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
 
 # Pre-processing again, cropping images
-model.add(Cropping2D(cropping=((70, 25), (0, 0))))
+model.add(Cropping2D(cropping=((60, 30), (0, 0))))
 
-# LeNet
-model.add(Conv2D(6, 5, 5, activation='relu'))
+# Traffic Sign Classifier LeNet with dropouts
+model.add(Conv2D(6, (5, 5), activation='relu'))
 model.add(MaxPooling2D())
-model.add(Conv2D(6, 5, 5, activation='relu'))
+model.add(Conv2D(6, (5, 5), activation='relu'))
 model.add(MaxPooling2D())
 model.add(Flatten())
 model.add(Dense(120))
+#model.add(Dropout(0.5))
 model.add(Dense(84))
+#model.add(Dropout(0.5))
 model.add(Dense(1))
 
 # Loss function is mean squared error (MSE) and the optimizer is ADAM
 model.compile(loss='mse', optimizer='adam')
 # The data is shuffled and 20% of it is saved for validation
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, epochs=5)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, epochs=10, batch_size=16)
 
 # Save the trained model
 model.save('model.h5')
