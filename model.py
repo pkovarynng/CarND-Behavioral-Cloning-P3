@@ -19,12 +19,18 @@ from scipy import ndimage
 print('Loading images...', end='')
 images = []
 measurements = []
+angle_correction = 0.2
 for line in lines:
-    filename = '/opt/data/'+line[0]
-    image = ndimage.imread(filename)
-    images.append(image)
-    measurement = float(line[3])
-    measurements.append(measurement)
+    for i in range(3):
+        filename = '/opt/data/'+line[i].strip()
+        image = ndimage.imread(filename)
+        images.append(image)
+        measurement = float(line[3])
+        if i == 1:
+            measurement += angle_correction
+        elif i == 2:
+            measurement -= angle_correction
+        measurements.append(measurement)    
 print('Done.')
 print('Number of images in data set: {}'.format(len(images)))
 
@@ -80,7 +86,7 @@ model.add(Dense(1))
 # Loss function is mean squared error (MSE) and the optimizer is ADAM
 model.compile(loss='mse', optimizer='adam')
 # The data is shuffled and 20% of it is saved for validation
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, epochs=10, batch_size=16)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, epochs=10, batch_size=32)
 
 # Save the trained model
 model.save('model.h5')
