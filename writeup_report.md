@@ -18,9 +18,9 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
+[image1]: ./Figure_1.png "Center Cam Img Histogram"
+[image2]: ./Figure_2.png "All Cam Img Histogram"
+[image3]: ./Figure_3.png "Augmented Cam Img Histogram"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
 [image5]: ./examples/placeholder_small.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
@@ -105,7 +105,7 @@ In the final model architecture the dropout layers were commented out. That was 
 
 So the final model architecure is a LeNet-style architecture. It consists of the following layers and sizes:
 
-| Layer         		|     Notes	        					| 
+| Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Lambda         		| input/output: 160x320x3                       |
 | Cropping         		| outputs 70x320x3 - pre-processed image shape  |
@@ -122,9 +122,19 @@ So the final model architecure is a LeNet-style architecture. It consists of the
 
 #### 3. Creation of the Training Set & Training Process
 
-I used the sample driving data for as a starting point for creating the training and validation sets. In that data, images for driving straight are over-represented. Therefore, I decided to do a ismple augmentation of the data: simply flipped images with a steering angle greater than a threshold - also a parameter that was tuned (code lines 37-50). In the final code the angle threshold was set to 0.02.
+I used the sample driving data as a starting point for creating the training and validation sets. In that data, images for driving straight (steering 0) are over-represented.
 
-In order to increase data volume I used all the images in the sample driving data: loaded the images recorded by the left- and righ-hand side cameras as well. This is a step I added before the previous data augmentation step, where I load the images (code lines 24-33). The steering angle measurements for the left- and right-hand side images were corrected by adding and subtracting the same correction value, respectively - yet another parameter to tune. In the final code this parameter was set to 0.2.
+![alt text][image1]
+
+In order to increase the volume of the training data to solve overfitting, I used all the images in the sample driving data: loaded the images recorded by the left- and righ-hand side cameras as well. This is a step I added to where I load the images (code lines 24-33). The steering angle measurements for the left- and right-hand side images were corrected by adding and subtracting the same correction value, respectively - yet another parameter to tune. In the final code this parameter was set to 0.2.
+
+The representation of the steering values throughout the images became the following:
+
+![alt text][image2]
+
+In order to further increase the data and reduce over-fitting, I decided to do a simple augmentation of the data: simply flipped images with a steering angle greater than a threshold - also a parameter that was tuned (code lines 37-50). In the final code the angle threshold was set to 0.02.
+
+![alt text][image3]
 
 After loading all the images and augmenting the data, I had 43468 data points. I then pre-processed this data by normalization and mean centering pixel values and also by cropping the images.
 
