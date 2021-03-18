@@ -4,7 +4,7 @@ import csv
 # as shown in the "Training Yout Network" video
 print('Reading driving log...', end='')
 lines = []
-with open('/opt/data/driving_log.csv') as csvfile:
+with open('./data/driving_log.csv') as csvfile:
     # Skip the line containing the table header
     next(csvfile)
     reader = csv.reader(csvfile)
@@ -22,7 +22,7 @@ measurements = []
 angle_correction = 0.2
 for line in lines:
     for i in range(3):
-        filename = '/opt/data/'+line[i].strip()
+        filename = './data/'+line[i].strip()
         image = ndimage.imread(filename)
         images.append(image)
         measurement = float(line[3])
