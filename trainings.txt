@@ -1,3 +1,50 @@
+LeNet final
+
+(/opt/carnd_p3/behavioral) root@388832684bb5:/home/workspace/CarND-Behavioral-Cloning-P3# python model.py
+Reading driving log...Done.
+Loading images...Done.
+Number of images in data set: 24108
+Augmenting data (steering angle threshold: 0.02)...Done.
+Number of images in data set after augmentation: 43468
+Using TensorFlow backend.
+Train on 34774 samples, validate on 8694 samples
+Epoch 1/10
+2021-03-18 17:52:21.262695: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2021-03-18 17:52:21.262756: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2021-03-18 17:52:21.262778: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2021-03-18 17:52:21.262787: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2021-03-18 17:52:21.262796: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2021-03-18 17:52:21.585309: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:893] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-03-18 17:52:21.586198: I tensorflow/core/common_runtime/gpu/gpu_device.cc:955] Found device 0 with properties: 
+name: Tesla K80
+major: 3 minor: 7 memoryClockRate (GHz) 0.8235
+pciBusID 0000:00:04.0
+Total memory: 11.17GiB
+Free memory: 11.10GiB
+2021-03-18 17:52:21.586275: I tensorflow/core/common_runtime/gpu/gpu_device.cc:976] DMA: 0 
+2021-03-18 17:52:21.586307: I tensorflow/core/common_runtime/gpu/gpu_device.cc:986] 0:   Y 
+2021-03-18 17:52:21.586338: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:04.0)
+34774/34774 [==============================] - 45s 1ms/step - loss: 0.0606 - val_loss: 0.0220
+Epoch 2/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0175 - val_loss: 0.0208
+Epoch 3/10
+34774/34774 [==============================] - 41s 1ms/step - loss: 0.0157 - val_loss: 0.0201
+Epoch 4/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0149 - val_loss: 0.0200
+Epoch 5/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0146 - val_loss: 0.0212
+Epoch 6/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0142 - val_loss: 0.0206
+Epoch 7/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0142 - val_loss: 0.0205
+Epoch 8/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0139 - val_loss: 0.0205
+Epoch 9/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0135 - val_loss: 0.0197
+Epoch 10/10
+34774/34774 [==============================] - 40s 1ms/step - loss: 0.0130 - val_loss: 0.0203
+
+
 LeNet with Cropped (50,25)
 
 6428/6428 [==============================] - 10s 1ms/step - loss: 0.1098 - val_loss: 0.0150
