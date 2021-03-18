@@ -71,7 +71,7 @@ model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
 # Pre-processing again, cropping images
 model.add(Cropping2D(cropping=((60, 30), (0, 0))))
 
-# Traffic Sign Classifier LeNet with dropouts
+# LeNet
 model.add(Conv2D(6, (5, 5), activation='relu'))
 model.add(MaxPooling2D())
 model.add(Conv2D(6, (5, 5), activation='relu'))
